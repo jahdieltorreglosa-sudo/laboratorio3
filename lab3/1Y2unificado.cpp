@@ -3,6 +3,8 @@
 #include <string>
 using namespace std;
 
+//parte 1
+
 string texto_a_binario(string texto) {
     string binario = "";
     for (int i = 0; i < texto.size(); i++) {
@@ -64,13 +66,41 @@ string metodo2(string bits, int n) {
     }
     return salida;
 }
+// parte 2
 
 
+string binario_a_texto(string bits) {
+    string texto = "";
+    for (int i = 0; i + 7 < bits.size(); i += 8) {
+        int valor = 0;
+        for (int j = 0; j < 8; j++) {
+            valor = valor * 2 + (bits[i + j] - '0');
+        }
+        texto += char(valor);
+    }
+    return texto;
+}
+
+
+//parte 3
 
 int main() {
     int opcion;
-    cout << "elige una opcion:" << endl;
-    cout << "1. codificar archivo" << endl;
-    cout << "2. decodificar archivo" << endl;
-    cout << "opcion: ";
+    cout << "Elige una opción:" << endl;
+    cout << "1. Codificar archivo" << endl;
+    cout << "2. Decodificar archivo" << endl;
+    cout << "Opción: ";
     cin >> opcion;
+
+    string archivo_entrada, archivo_salida;
+    int semilla, metodo;
+
+    if (opcion == 1) {
+        cout << "escribe el nombre del archivo de entrada: ";
+        cin >> archivo_entrada;
+        cout << "escribe el nombre del archivo de salida: ";
+        cin >> archivo_salida;
+        cout << "dime la semilla (n): ";
+        cin >> semilla;
+        cout << "dime el metodo (1 o 2): ";
+        cin >> metodo;
