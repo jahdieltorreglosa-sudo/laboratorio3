@@ -81,6 +81,11 @@ string binario_a_texto(string bits) {
     return texto;
 }
 
+string metodo1_inverso
+
+string metodo2_inverso(string bits, int n) {
+    string salida = "";
+    for //(int i = 0; i
 
 //parte 3
 
@@ -104,3 +109,16 @@ int main() {
         cin >> semilla;
         cout << "dime el metodo (1 o 2): ";
         cin >> metodo;
+
+  else if (opcion == 2) {
+        cout << "escribe el archivo que vas a decodificar: ";
+        cin >> archivo_entrada;
+        cout << "escribe el archivo donde quieres guardar: ";
+        cin >> archivo_salida;
+        cout << "dime la semilla: ";
+        cin >> semilla;
+        cout << "dime el metodo (1 o 2): ";
+        cin >> metodo;
+
+	ifstream in(archivo_entrada.c_str());
+        if (!in.is_open()) {
