@@ -61,13 +61,28 @@ int main() {
             r.agregar_conexion(a, b, c);
         }
         else if (opcion == 6) {
-            string archivo;
-            cout << "ingrese el nombre del archivo: ";
-            cin >> archivo;
-            r.cargar_desde_archivo(archivo);
+            string modo;
+            cout << "deseas cargar o guardar la topologia? ";
+            cin >> modo;
+
+            string nombre = "red.txt";
+
+            if (modo == "cargar") {
+                r.cargar_desde_archivo(nombre);
+                cout << "\nred cargada correctamente desde " << nombre << endl;
+                cout << "conexiones actuales:" << endl;
+                r.mostrar_conexiones();
+            }
+            else if (modo == "guardar") {
+                r.guardar_en_archivo(nombre);
+                cout << "\nred guardada correctamente en " << nombre << endl;
+            }
+            else {
+                cout << "opcion invalida" << endl;
+            }
         }
         else if (opcion == 7) {
-            r.mostrar_conexiones();
+            r.mostrar_tabla_global();
         }
         else if (opcion == 8) {
             int a, b;
@@ -75,7 +90,19 @@ int main() {
             cin >> a;
             cout << "ingrese el enrutador destino: ";
             cin >> b;
-            r.dijkstra(a, b);
+            if (r.routers.find(a) == r.routers.end() || r.routers.find(b) == r.routers.end()) {
+                cout << "uno de los enrutadores no existe" << endl;
+            } else {
+                int costo = INT_MAX;
+                if (r.routers[a].tabla_costos.find(b) != r.routers[a].tabla_costos.end()) {
+                    costo = r.routers[a].tabla_costos[b];
+                } else {
+                    auto dp = r.dijkstra_dist_prev(a);
+                    if (dp.first.find(b) != dp.first.end()) costo = dp.first[b];
+                }
+                if (costo == INT_MAX) cout << "no hay camino entre " << a << " y " << b << endl;
+                else cout << "costo entre " << a << " y " << b << " es " << costo << endl;
+            }
         }
         else if (opcion == 9) {
             int a, b;
